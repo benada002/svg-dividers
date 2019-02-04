@@ -1,0 +1,18 @@
+=create-svg($color: #ffffff, $svg: normal)
+    .svg-divider-top:before
+        @if type-of(svg) == string and type-of(svg) != "all"
+            &.#{$svg}-#{$color}
+                background-image: map-get($svgs, $svg)     
+        @else    
+            @each $name, $background in if($svg == "all", $svgs, $svg)
+                &.#{$name}-#{$color}
+                    background-image: map-get($svgs, $name)
+
+    .svg-divider-bottom:after
+        @if type-of(svg) == string and type-of(svg) != "all"
+            &.#{$svg}-#{$color}
+                background-image: map-get($svgs, $svg)     
+        @else    
+            @each $name, $background in if($svg == "all", $svgs, $svg)
+                &.#{$name}-#{$color}
+                    background-image: map-get($svgs, $name)     
