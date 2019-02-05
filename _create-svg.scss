@@ -9,6 +9,7 @@
 
   @return $string;
 }
+
 @function encode-url($str) {
   $replace-chars: (
     "%": "%25",
