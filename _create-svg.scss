@@ -1,0 +1,65 @@
+@function replace($string, $search, $replace) {
+  $search-i: str-index($string, $search);
+
+  @if $search-i and $search != $replace {
+    $end: $search-i + str-length($search);
+    $new-string: str-slice($string, 0, $search-i - 1) + $replace;
+    @return $new-string + replace(str-slice($string, $end), $search, $replace);
+  }
+
+  @return $string;
+}
+@function encode-url($str) {
+  $replace-chars: (
+    "%": "%25",
+    " ": "%20",
+    '"': "%22",
+    "#": "%23",
+    "{": "%7B",
+    "}": "%7D",
+    "<": "%3C",
+    ">": "%3E",
+    "&": "%26"
+  );
+
+  @each $char, $replace in $replace-chars {
+    $str: replace($str, $char, $replace);
+  }
+
+  @return $str;
+}
+
+@function get-svg($color, $svg) {
+  $svg: "<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 56 31' preserveAspectRatio='none'><g fill='#{$color}'>#{map-get($svgs, $svg)}}</g></svg>";
+
+  @return "data:image/svg+xml, #{encode-url($svg)}";
+}
+
+@mixin create-svg($class, $color: #fff, $svg: all) {
+  .svg-divider.top {
+    @if type-of($svg) == string and $svg != "all" {
+      &.#{$svg}-#{$class}:before {
+        background-image: url("#{get-svg($color, $svg)}");
+      }
+    } @else {
+      @each $name, $background in if($svg == "all", $svgs, $svg) {
+        &.#{$name}-#{$class}:before {
+          background-image: url("#{get-svg($color, $name)}");
+        }
+      }
+    }
+  }
+  .svg-divider.bottom {
+    @if type-of($svg) == string and $svg != "all" {
+      &.#{$svg}-#{$class}:after {
+        background-image: url("#{get-svg($color, $svg)}");
+      }
+    } @else {
+      @each $name, $background in if($svg == "all", $svgs, $svg) {
+        &.#{$name}-#{$class}:after {
+          background-image: url("#{get-svg($color, $name)}");
+        }
+      }
+    }
+  }
+}
