@@ -1,4 +1,5 @@
-# SCSS SVG divider libary
+# SCSS SVG divider
+A scss svg divider libary.
 
 ## Usage:
 
