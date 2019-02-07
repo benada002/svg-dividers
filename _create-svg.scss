@@ -2,9 +2,14 @@
   $search-i: str-index($string, $search);
 
   @if $search-i and $search != $replace {
-    $end: $search-i + str-length($search);
+    $rest-string: str-slice($string, $search-i + str-length($search));
     $new-string: str-slice($string, 0, $search-i - 1) + $replace;
-    @return $new-string + replace(str-slice($string, $end), $search, $replace);
+
+    @if str-index($rest-string, $search) != null {
+      @return $new-string + replace($rest-string, $search, $replace);
+    } @else {
+      @return $new-string;
+    }
   }
 
   @return $string;
