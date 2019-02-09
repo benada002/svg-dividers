@@ -38,32 +38,38 @@
 }
 
 @mixin create-svg($class, $color: #fff, $svg: all, $height: 80px) {
-  .svg-divider.top {
-    @if type-of($svg) == string and $svg != "all" {
-      &.#{$svg}-#{$class}:before {
-        height: $height;
-        background-image: url("#{get-svg($color, $svg)}");
-      }
-    } @else {
-      @each $name, $background in if($svg == "all", $svgs, $svg) {
-        &.#{$name}-#{$class}:before {
+  .svg-divider {
+    &.top {
+      padding-top: $height;
+
+      @if type-of($svg) == string and $svg != "all" {
+        &.#{$svg}-#{$class}:before {
           height: $height;
-          background-image: url("#{get-svg($color, $name)}");
+          background-image: url("#{get-svg($color, $svg)}");
+        }
+      } @else {
+        @each $name, $background in if($svg == "all", $svgs, $svg) {
+          &.#{$name}-#{$class}:before {
+            height: $height;
+            background-image: url("#{get-svg($color, $name)}");
+          }
         }
       }
     }
-  }
-  .svg-divider.bottom {
-    @if type-of($svg) == string and $svg != "all" {
-      &.#{$svg}-#{$class}:after {
-        height: $height;
-        background-image: url("#{get-svg($color, $svg)}");
-      }
-    } @else {
-      @each $name, $background in if($svg == "all", $svgs, $svg) {
-        &.#{$name}-#{$class}:after {
+    &.bottom {
+      padding-bottom: $height;
+
+      @if type-of($svg) == string and $svg != "all" {
+        &.#{$svg}-#{$class}:after {
           height: $height;
-          background-image: url("#{get-svg($color, $name)}");
+          background-image: url("#{get-svg($color, $svg)}");
+        }
+      } @else {
+        @each $name, $background in if($svg == "all", $svgs, $svg) {
+          &.#{$name}-#{$class}:after {
+            height: $height;
+            background-image: url("#{get-svg($color, $name)}");
+          }
         }
       }
     }
