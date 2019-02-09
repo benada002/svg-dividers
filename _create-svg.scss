@@ -5,7 +5,7 @@
     $rest-string: str-slice($string, $search-i + str-length($search));
     $new-string: str-slice($string, 0, $search-i - 1) + $replace;
 
-    @return if(str-index($rest-string, $search) == null, $new-string, $new-string + replace($rest-string, $search, $replace));
+    @return $new-string + replace($rest-string, $search, $replace);
   }
 
   @return $string;
