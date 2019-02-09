@@ -43,13 +43,13 @@
       padding-top: $height;
 
       @if type-of($svg) == string and $svg != "all" {
-        &.#{$svg}-#{$class}:before {
+        &.top-#{$svg}-#{$class}:before {
           height: $height;
           background-image: url("#{get-svg($color, $svg)}");
         }
       } @else {
         @each $name, $background in if($svg == "all", $svgs, $svg) {
-          &.#{$name}-#{$class}:before {
+          &.top-#{$name}-#{$class}:before {
             height: $height;
             background-image: url("#{get-svg($color, $name)}");
           }
@@ -60,13 +60,13 @@
       padding-bottom: $height;
 
       @if type-of($svg) == string and $svg != "all" {
-        &.#{$svg}-#{$class}:after {
+        &.bottom-#{$svg}-#{$class}:after {
           height: $height;
           background-image: url("#{get-svg($color, $svg)}");
         }
       } @else {
         @each $name, $background in if($svg == "all", $svgs, $svg) {
-          &.#{$name}-#{$class}:after {
+          &.bottom-#{$name}-#{$class}:after {
             height: $height;
             background-image: url("#{get-svg($color, $name)}");
           }
